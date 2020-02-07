@@ -61,6 +61,7 @@ class Pagination extends Component {
           onClick={this.handleClick}
           className={`page-number ${this.isActive(el)}`}
           id={el}
+          key={el}
         >
           <p>{el}</p>
         </div>
