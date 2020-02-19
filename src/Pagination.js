@@ -3,7 +3,7 @@ import { range } from "lodash";
 
 class Pagination extends Component {
   state = {
-    pages: null,
+    pages: [],
     currentPageIndex: null
   };
 
@@ -99,9 +99,21 @@ class Pagination extends Component {
 
     return (
       <div className="pagination">
-        <button onClick={this.prevPageHanlder}> Prev </button>
+        <button
+          onClick={this.prevPageHanlder}
+          disabled={currentPageIndex === 0}
+        >
+          {" "}
+          Prev{" "}
+        </button>
         {pagination}
-        <button onClick={this.nextPageHandler}> Next </button>
+        <button
+          onClick={this.nextPageHandler}
+          disabled={currentPageIndex === pages.length - 1}
+        >
+          {" "}
+          Next{" "}
+        </button>
       </div>
     );
   }
