@@ -32,7 +32,6 @@ const App = props => {
       <Pagination {...randomProps()} />
       <Pagination {...randomProps()} />
       <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
     </div>
   );
 };
