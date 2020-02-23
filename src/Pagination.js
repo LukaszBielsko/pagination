@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { range } from "lodash";
 
-class Pagination extends Component {
+export default class Pagination extends Component {
   state = {
     pages: [],
     currentPageIndex: null
@@ -26,22 +26,16 @@ class Pagination extends Component {
     return currentPageIndex;
   };
 
-  // changePageHandler can be one function that takes in type (or id) prev or next
-  // and depending on that mutates the state
-  nextPageHandler = () => {
-    this.setState(({ currentPageIndex }) => {
-      return {
-        // incosistency here - I've got return here and prevPageHanlder does not have it
+  changePageButtonHandler = type => {
+    if (type === "prev") {
+      this.setState(({ currentPageIndex }) => ({
+        currentPageIndex: this.checkPageRange(currentPageIndex - 1)
+      }));
+    } else if (type === "next") {
+      this.setState(({ currentPageIndex }) => ({
         currentPageIndex: this.checkPageRange(currentPageIndex + 1)
-      };
-    });
-  };
-
-  prevPageHanlder = () => {
-    // typO
-    this.setState(({ currentPageIndex }) => ({
-      currentPageIndex: this.checkPageRange(currentPageIndex - 1)
-    }));
+      }));
+    }
   };
 
   handleClick = e => {
@@ -116,14 +110,16 @@ class Pagination extends Component {
     return (
       <div className="pagination">
         <button
-          onClick={this.prevPageHanlder}
+          // onClick={this.prevPageHanlder}
+          onClick={() => this.changePageButtonHandler("prev")}
           disabled={currentPageIndex === 0}
         >
           Prev
         </button>
         {pagination}
         <button
-          onClick={this.nextPageHandler}
+          // onClick={this.nextPageHandler}
+          onClick={() => this.changePageButtonHandler("next")}
           disabled={currentPageIndex === pages.length - 1}
         >
           Next
@@ -133,4 +129,4 @@ class Pagination extends Component {
   }
 }
 
-export default Pagination; // export default on the top
+// export default Pagination; // export default on the top
