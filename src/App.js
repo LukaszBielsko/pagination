@@ -3,37 +3,16 @@ import "./App.css";
 
 import Pagination from "./Pagination";
 
-const randomNumbers = max => {
-  return Math.floor(1 + Math.random() * Math.floor(max));
-};
+import { createComponentsWithProps, randomPaginationProps } from "./utils";
 
-const randomProps = () => {
-  const pages = randomNumbers(50);
-  const currentPage = randomNumbers(pages);
-  const offset = randomNumbers(8);
-  return { currentPage, pages, offset };
-};
-
-const App = props => {
-  return (
-    <div className="App">
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-      <Pagination {...randomProps()} />
-    </div>
+const App = ({ componentsCount }) => {
+  const paginationComponents = createComponentsWithProps(
+    componentsCount,
+    Pagination,
+    randomPaginationProps
   );
+
+  return <div className="App">{paginationComponents}</div>;
 };
 
 export default App;

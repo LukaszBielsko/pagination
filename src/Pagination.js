@@ -9,7 +9,7 @@ class Pagination extends Component {
 
   componentDidMount() {
     const { pages: pagesCount, currentPage } = this.props;
-    const pages = range(1, pagesCount + 1);
+    const pages = range(1, pagesCount + 1); // start from 0 - but why? since it is pages range and it cant start from 0
     this.setState({
       pages,
       currentPageIndex: currentPage - 1
@@ -26,15 +26,19 @@ class Pagination extends Component {
     return currentPageIndex;
   };
 
+  // changePageHandler can be one function that takes in type (or id) prev or next
+  // and depending on that mutates the state
   nextPageHandler = () => {
     this.setState(({ currentPageIndex }) => {
       return {
+        // incosistency here - I've got return here and prevPageHanlder does not have it
         currentPageIndex: this.checkPageRange(currentPageIndex + 1)
       };
     });
   };
 
   prevPageHanlder = () => {
+    // typO
     this.setState(({ currentPageIndex }) => ({
       currentPageIndex: this.checkPageRange(currentPageIndex - 1)
     }));
@@ -56,6 +60,13 @@ class Pagination extends Component {
 
   paginate = (pages, firstIndex, lastIndex) => {
     return pages.slice(firstIndex, lastIndex).map(el => {
+      /* 
+        below as component 
+        pass in handleClick as prop
+
+        pass elemnent as index or sth like that 
+        name is a paginationButton
+      */
       return (
         <div
           onClick={this.handleClick}
@@ -73,6 +84,9 @@ class Pagination extends Component {
     const { currentPageIndex, pages } = this.state;
     const { offset } = this.props;
 
+    // too much logic in render comp
+    // extract algorithm to a method
+    // let pagination = createPagination(pages)
     let pagination, firstIndex, lastIndex;
     const pageRange = offset * 2 + 1;
 
@@ -95,6 +109,10 @@ class Pagination extends Component {
       pagination = this.paginate(pages, firstIndex, lastIndex);
     }
 
+    // too much pagination - not DRY code
+    // i might as well do it on the very end with only one
+    // pagination = this.paginate(pages, firstIndex, lastIndex);
+
     return (
       <div className="pagination">
         <button
@@ -115,4 +133,4 @@ class Pagination extends Component {
   }
 }
 
-export default Pagination;
+export default Pagination; // export default on the top
