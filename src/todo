@@ -1,0 +1,79 @@
+>>> App.js
+
+  I wanted to move util methods to separate file and make the as much reusable as possible.
+  Thus createComponentWithProps can be used not only with our case but for more generic purposes. 
+  You mentioned converting App.js to class component, but no state nor lifecycle methods has been used in it, 
+
+
+>>> PaginationButton.js
+
+  Moved PaginationButton to a separete component. 
+  Removed isActive from Pagination component as it was no this component concern to check for active state of child component. 
+  isActive replaced with inline ternary checking for equality with currentPageIndex
+
+      // isActive = element => {
+        //   const { currentPageIndex } = this.state;
+        //   if (element - 1 === currentPageIndex) return "active-pagination";
+        // };
+
+      /*
+      below as component
+      pass in handleClick as prop
+      pass elemnent as index or sth like that
+      name is a paginationButton
+      */
+      // return (
+      //   <div
+      //     onClick={this.handleClick}
+      //     className={`page-number ${this.isActive(el)}`}
+      //     id={el}
+      //     key={el}
+      //   >
+      //     <p>{el}</p>
+      //   </div>
+      // );
+
+>>> Pagination
+
+
+  // too much pagination - not DRY code
+  // i might as well do it on the very end with only one
+  // pagination = this.paginate(pages, firstIndex, lastIndex);
+
+  // render() {
+  //   const { currentPageIndex, pages } = this.state;
+  //   const { offset } = this.props;
+
+  //   // too much logic in render comp
+  //   // extract algorithm to a method
+  //   // let pagination = createPagination(pages)
+  //   let pagination, firstIndex, lastIndex;
+  //   const pageRange = offset * 2 + 1;
+
+  //   if (pages.length < pageRange) {
+  //     pagination = this.paginate(pages);
+  //   } else if (currentPageIndex - offset < 0) {
+  //     // render whole page range when first pages reached
+  //     firstIndex = 0;
+  //     lastIndex = pageRange;
+  //     pagination = this.paginate(pages, firstIndex, lastIndex);
+  //   } else if (currentPageIndex + offset >= pages.length) {
+  //     // render whole page range when last pages reached
+  //     lastIndex = pages.length;
+  //     firstIndex = lastIndex - pageRange;
+  //     pagination = this.paginate(pages, firstIndex, lastIndex);
+  //   } else {
+  //     // render 'middle' page range
+  //     firstIndex = currentPageIndex - offset;
+  //     lastIndex = currentPageIndex + offset + 1;
+  //     pagination = this.paginate(pages, firstIndex, lastIndex);
+  //   }
+
+  
+
+
+ return (
+    <div className="App">
+      <Pagination pages={10} currentPage={2} offset={3} />
+    </div>
+  );

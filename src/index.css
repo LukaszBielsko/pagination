@@ -1,7 +1,7 @@
 .pagination {
   margin: auto;
   margin-top: 40px;
-  width: 70%;
+  width: 90%;
   display: flex;
   justify-content: space-evenly;
 }
@@ -9,7 +9,8 @@
 .pagination-button {
   width: 50px;
   height: 50px;
-  border: 1px solid green;
+  border: 1px solid rgb(166, 226, 97);
+  cursor: pointer;
 }
 
 .pagination-button-active {
@@ -19,5 +20,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(158, 158, 158, 0.404);
+  background-color: rgba(71, 124, 10, 0.15);
+  border: 2px solid yellowgreen;
+}
+
+.change-page-btn {
+  cursor: pointer;
 }

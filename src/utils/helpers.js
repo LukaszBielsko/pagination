@@ -1,9 +1,5 @@
 import React from "react";
 
-const randomNumbers = max => {
-  return Math.floor(1 + Math.random() * max);
-};
-
 // reusable function for creating given number of components
 export const createComponentsWithProps = (
   componentsCount,
@@ -13,14 +9,18 @@ export const createComponentsWithProps = (
   let components = [];
   for (let index = 0; index < componentsCount; index++) {
     const componentsProps = createPropsFunction();
-    components.push(<Component {...componentsProps} />);
+    components.push(<Component {...componentsProps} key={index} />);
   }
   return components;
 };
 
+const randomNumbers = max => {
+  return Math.floor(1 + Math.random() * max);
+};
+
 export const randomPaginationProps = () => {
-  const pages = randomNumbers(50);
-  const currentPage = randomNumbers(pages);
+  const pagesCount = randomNumbers(50);
+  const currentPage = randomNumbers(pagesCount);
   const offset = randomNumbers(8);
-  return { currentPage, pages, offset };
+  return { currentPage, pagesCount, offset };
 };

@@ -10,8 +10,8 @@ export default class Pagination extends Component {
   };
 
   componentDidMount() {
-    const { pages: pagesCount, currentPage } = this.props;
-    const pages = range(1, pagesCount + 1); // start from 0 - but why? since it is pages range and it cant start from 0
+    const { pagesCount, currentPage } = this.props;
+    const pages = range(0, pagesCount);
     this.setState({
       pages,
       currentPageIndex: currentPage - 1
@@ -19,21 +19,21 @@ export default class Pagination extends Component {
   }
 
   checkPageRange = currentPageIndex => {
-    const { pages } = this.props;
+    const { pages } = this.state;
     if (currentPageIndex < 0) {
       return 0;
-    } else if (currentPageIndex > pages - 1) {
-      return pages - 1;
+    } else if (currentPageIndex > pages.length) {
+      return pages.length;
     }
     return currentPageIndex;
   };
 
-  changePageButtonHandler = type => {
-    if (type === "prev") {
+  changePageButtonHandler = btnType => {
+    if (btnType === "prev") {
       this.setState(({ currentPageIndex }) => ({
         currentPageIndex: this.checkPageRange(currentPageIndex - 1)
       }));
-    } else if (type === "next") {
+    } else if (btnType === "next") {
       this.setState(({ currentPageIndex }) => ({
         currentPageIndex: this.checkPageRange(currentPageIndex + 1)
       }));
@@ -43,43 +43,43 @@ export default class Pagination extends Component {
   paginationButtonClickHandler = element => {
     const targetPage = element.currentTarget.id;
     this.setState({
-      currentPageIndex: targetPage - 1
+      currentPageIndex: parseInt(targetPage)
     });
   };
 
-  paginate = (pages, firstIndex, lastIndex) => {
-    return pages.slice(firstIndex, lastIndex).map(el => {
+  populatePaginationButtons = (pages, firstIndex, lastIndex) => {
+    return pages.slice(firstIndex, lastIndex).map(element => {
       return (
         <PaginationButton
-          key={el}
+          key={element}
           click={this.paginationButtonClickHandler}
-          pageNumber={el}
+          pageNumber={element}
           currentPageIndex={this.state.currentPageIndex}
         />
       );
     });
   };
 
-  createPagination = (pages, currentPage, offset) => {
-    let firstIndex, lastIndex;
+  createPagination = (pages, currentPageIndex, offset) => {
     const pageRange = offset * 2 + 1;
+    let firstIndex, lastIndex;
 
     if (pages.length < pageRange) {
-      return this.paginate(pages);
-    } else if (currentPage - offset < 0) {
+      return this.populatePaginationButtons(pages);
+    } else if (currentPageIndex - offset < 0) {
       // render whole page range when first pages reached
       firstIndex = 0;
       lastIndex = pageRange;
-    } else if (currentPage + offset >= pages.length) {
+    } else if (currentPageIndex + offset >= pages.length) {
       // render whole page range when last pages reached
       lastIndex = pages.length;
       firstIndex = lastIndex - pageRange;
     } else {
       // render 'middle' page range
-      firstIndex = currentPage - offset;
-      lastIndex = currentPage + offset + 1;
+      firstIndex = currentPageIndex - offset;
+      lastIndex = currentPageIndex + offset + 1;
     }
-    return this.paginate(pages, firstIndex, lastIndex);
+    return this.populatePaginationButtons(pages, firstIndex, lastIndex);
   };
 
   render() {
@@ -91,6 +91,7 @@ export default class Pagination extends Component {
     return (
       <div className="pagination">
         <button
+          className="change-page-btn"
           onClick={() => this.changePageButtonHandler("prev")}
           disabled={currentPageIndex === 0}
         >
@@ -98,6 +99,7 @@ export default class Pagination extends Component {
         </button>
         {pagination}
         <button
+          className="change-page-btn"
           onClick={() => this.changePageButtonHandler("next")}
           disabled={currentPageIndex === pages.length - 1}
         >

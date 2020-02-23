@@ -1,8 +1,7 @@
 import React from "react";
+
 import "./App.css";
-
-import Pagination from "./Pagination";
-
+import Pagination from "./components/Pagination";
 import { createComponentsWithProps, randomPaginationProps } from "./utils";
 
 export default ({ componentsCount }) => {
