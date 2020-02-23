@@ -8,7 +8,6 @@ export default ({ pageNumber, click, currentPageIndex }) => (
       pageNumber === currentPageIndex + 1 ? "pagination-button-active" : null
     }`}
     id={pageNumber}
-    key={pageNumber}
   >
     <p>{pageNumber}</p>
   </div>

@@ -40,8 +40,8 @@ export default class Pagination extends Component {
     }
   };
 
-  handleClick = e => {
-    const targetPage = e.currentTarget.id;
+  paginationButtonClickHandler = element => {
+    const targetPage = element.currentTarget.id;
     this.setState({
       currentPageIndex: targetPage - 1
     });
@@ -51,7 +51,8 @@ export default class Pagination extends Component {
     return pages.slice(firstIndex, lastIndex).map(el => {
       return (
         <PaginationButton
-          click={this.handleClick}
+          key={el}
+          click={this.paginationButtonClickHandler}
           pageNumber={el}
           currentPageIndex={this.state.currentPageIndex}
         />
@@ -59,38 +60,33 @@ export default class Pagination extends Component {
     });
   };
 
+  createPagination = (pages, currentPage, offset) => {
+    let firstIndex, lastIndex;
+    const pageRange = offset * 2 + 1;
+
+    if (pages.length < pageRange) {
+      return this.paginate(pages);
+    } else if (currentPage - offset < 0) {
+      // render whole page range when first pages reached
+      firstIndex = 0;
+      lastIndex = pageRange;
+    } else if (currentPage + offset >= pages.length) {
+      // render whole page range when last pages reached
+      lastIndex = pages.length;
+      firstIndex = lastIndex - pageRange;
+    } else {
+      // render 'middle' page range
+      firstIndex = currentPage - offset;
+      lastIndex = currentPage + offset + 1;
+    }
+    return this.paginate(pages, firstIndex, lastIndex);
+  };
+
   render() {
     const { currentPageIndex, pages } = this.state;
     const { offset } = this.props;
 
-    // too much logic in render comp
-    // extract algorithm to a method
-    // let pagination = createPagination(pages)
-    let pagination, firstIndex, lastIndex;
-    const pageRange = offset * 2 + 1;
-
-    if (pages.length < pageRange) {
-      pagination = this.paginate(pages);
-    } else if (currentPageIndex - offset < 0) {
-      // render whole page range when first pages reached
-      firstIndex = 0;
-      lastIndex = pageRange;
-      pagination = this.paginate(pages, firstIndex, lastIndex);
-    } else if (currentPageIndex + offset >= pages.length) {
-      // render whole page range when last pages reached
-      lastIndex = pages.length;
-      firstIndex = lastIndex - pageRange;
-      pagination = this.paginate(pages, firstIndex, lastIndex);
-    } else {
-      // render 'middle' page range
-      firstIndex = currentPageIndex - offset;
-      lastIndex = currentPageIndex + offset + 1;
-      pagination = this.paginate(pages, firstIndex, lastIndex);
-    }
-
-    // too much pagination - not DRY code
-    // i might as well do it on the very end with only one
-    // pagination = this.paginate(pages, firstIndex, lastIndex);
+    const pagination = this.createPagination(pages, currentPageIndex, offset);
 
     return (
       <div className="pagination">
