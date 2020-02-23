@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { range } from "lodash";
 
+import PaginationButton from "./PaginationButton";
+
 export default class Pagination extends Component {
   state = {
     pages: [],
@@ -45,31 +47,14 @@ export default class Pagination extends Component {
     });
   };
 
-  isActive = el => {
-    const { currentPageIndex } = this.state;
-    if (el - 1 === currentPageIndex) {
-      return "active-pagination";
-    }
-  };
-
   paginate = (pages, firstIndex, lastIndex) => {
     return pages.slice(firstIndex, lastIndex).map(el => {
-      /* 
-        below as component 
-        pass in handleClick as prop
-
-        pass elemnent as index or sth like that 
-        name is a paginationButton
-      */
       return (
-        <div
-          onClick={this.handleClick}
-          className={`page-number ${this.isActive(el)}`}
-          id={el}
-          key={el}
-        >
-          <p>{el}</p>
-        </div>
+        <PaginationButton
+          click={this.handleClick}
+          pageNumber={el}
+          currentPageIndex={this.state.currentPageIndex}
+        />
       );
     });
   };
@@ -110,7 +95,6 @@ export default class Pagination extends Component {
     return (
       <div className="pagination">
         <button
-          // onClick={this.prevPageHanlder}
           onClick={() => this.changePageButtonHandler("prev")}
           disabled={currentPageIndex === 0}
         >
@@ -118,7 +102,6 @@ export default class Pagination extends Component {
         </button>
         {pagination}
         <button
-          // onClick={this.nextPageHandler}
           onClick={() => this.changePageButtonHandler("next")}
           disabled={currentPageIndex === pages.length - 1}
         >
@@ -128,5 +111,3 @@ export default class Pagination extends Component {
     );
   }
 }
-
-// export default Pagination; // export default on the top
