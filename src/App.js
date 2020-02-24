@@ -15,7 +15,11 @@ const App = ({ componentsCount }) => {
     randomPaginationProps
   );
 
-  return <div className="App">{paginationComponents}</div>;
+  return (
+    <div data-test="app" className="App">
+      {paginationComponents}
+    </div>
+  );
 };
 
 App.propTypes = {
