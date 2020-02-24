@@ -4,7 +4,7 @@ import "./App.css";
 import Pagination from "./components/Pagination";
 import { createComponentsWithProps, randomPaginationProps } from "./utils";
 
-export default ({ componentsCount }) => {
+const App = ({ componentsCount }) => {
   const paginationComponents = createComponentsWithProps(
     componentsCount,
     Pagination,
@@ -13,3 +13,5 @@ export default ({ componentsCount }) => {
 
   return <div className="App">{paginationComponents}</div>;
 };
+
+export default App;

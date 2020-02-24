@@ -3,7 +3,7 @@ import { range } from "lodash";
 
 import PaginationButton from "./PaginationButton";
 
-export default class Pagination extends Component {
+class Pagination extends Component {
   state = {
     pages: [],
     currentPageIndex: null
@@ -109,3 +109,5 @@ export default class Pagination extends Component {
     );
   }
 }
+
+export default Pagination;

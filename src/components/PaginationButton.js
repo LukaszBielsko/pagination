@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 
-export default ({ pageNumber, click, currentPageIndex }) => (
+const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
   <div
     onClick={click}
     className={`pagination-button ${
@@ -12,3 +12,5 @@ export default ({ pageNumber, click, currentPageIndex }) => (
     <p>{pageNumber + 1}</p>
   </div>
 );
+
+export default PaginationButton;
