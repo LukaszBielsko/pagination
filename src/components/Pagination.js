@@ -92,19 +92,19 @@ class Pagination extends Component {
     return (
       <div data-test="pagination" className="pagination">
         <button
-          data-test="prev"
           className="change-page-btn"
-          onClick={() => this.changePageButtonHandler("prev")}
+          data-test="prev"
           disabled={currentPageIndex === 0}
+          onClick={() => this.changePageButtonHandler("prev")}
         >
           Prev
         </button>
         {pagination}
         <button
-          data-test="next"
           className="change-page-btn"
-          onClick={() => this.changePageButtonHandler("next")}
+          data-test="next"
           disabled={currentPageIndex === pages.length - 1}
+          onClick={() => this.changePageButtonHandler("next")}
         >
           Next
         </button>
@@ -114,9 +114,9 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
+  currentPage: numberGraterThenZero,
   offset: numberGraterThenZero,
-  pagesCount: numberGraterThenZero,
-  currentPage: numberGraterThenZero
+  pagesCount: numberGraterThenZero
 };
 
 export default Pagination;

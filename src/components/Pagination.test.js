@@ -21,12 +21,10 @@ describe("Pagination", () => {
         wrapper,
         PaginationButton
       );
-      const pageRange = randomProps.offset * 2 + 1;
-      /* TODO what if array length is less then page range?  maybe with if statement here */
+      let pageRange = randomProps.offset * 2 + 1;
       if (paginationButtonComponents.length < pageRange) {
-        expect(paginationButtonComponents.length).toBe(
-          paginationButtonComponents.length
-        );
+        pageRange = paginationButtonComponents.length;
+        expect(paginationButtonComponents.length).toBe(pageRange);
       } else {
         expect(paginationButtonComponents.length).toBe(pageRange);
       }

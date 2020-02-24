@@ -6,12 +6,12 @@ import { numberGraterThenZero } from "../utils";
 
 const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
   <div
-    onClick={click}
-    data-test="pagination-button"
     className={`pagination-button ${
       pageNumber === currentPageIndex ? "pagination-button-active" : null
     }`}
+    data-test="pagination-button"
     id={pageNumber}
+    onClick={click}
   >
     <p>{pageNumber + 1}</p>
   </div>
@@ -19,8 +19,8 @@ const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
 
 PaginationButton.propTypes = {
   click: PropTypes.func.isRequired,
-  pageNumber: numberGraterThenZero,
-  currentPageIndex: numberGraterThenZero
+  currentPageIndex: numberGraterThenZero,
+  pageNumber: numberGraterThenZero
 };
 
 export default PaginationButton;
