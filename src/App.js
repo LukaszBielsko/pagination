@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./App.css";
 import Pagination from "./components/Pagination";
@@ -12,6 +13,10 @@ const App = ({ componentsCount }) => {
   );
 
   return <div className="App">{paginationComponents}</div>;
+};
+
+App.propTypes = {
+  componentsCount: PropTypes.number.isRequired
 };
 
 export default App;

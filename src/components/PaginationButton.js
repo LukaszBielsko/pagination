@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import "../App.css";
 
 const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
@@ -12,5 +14,11 @@ const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
     <p>{pageNumber + 1}</p>
   </div>
 );
+
+PaginationButton.propTypes = {
+  click: PropTypes.func.isRequired,
+  pageNumber: PropTypes.number.isRequired,
+  currentPageIndex: PropTypes.number.isRequired
+};
 
 export default PaginationButton;
