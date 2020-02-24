@@ -90,8 +90,9 @@ class Pagination extends Component {
     const pagination = this.createPagination(pages, currentPageIndex, offset);
 
     return (
-      <div className="pagination">
+      <div data-test="pagination" className="pagination">
         <button
+          data-test="prev"
           className="change-page-btn"
           onClick={() => this.changePageButtonHandler("prev")}
           disabled={currentPageIndex === 0}
@@ -100,6 +101,7 @@ class Pagination extends Component {
         </button>
         {pagination}
         <button
+          data-test="next"
           className="change-page-btn"
           onClick={() => this.changePageButtonHandler("next")}
           disabled={currentPageIndex === pages.length - 1}

@@ -77,3 +77,26 @@
       <Pagination pages={10} currentPage={2} offset={3} />
     </div>
   );
+
+
+
+
+>>> PropTypes
+    changed annonymous exports to named ones
+    added PropTypes
+    created custom props validator
+
+
+>>> Testing
+    what to test?
+      number of pagination components matching props passed in 
+
+  on component mount
+      pages array matches pagesCount prop
+
+      currentPage matches currentPageIndex + 1
+
+      pageRange matches offset*2+1 or is smaller if (pages.length < pageRange) 
+
+
+    

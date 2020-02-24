@@ -7,6 +7,7 @@ import { numberGraterThenZero } from "../utils";
 const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
   <div
     onClick={click}
+    data-test="pagination-button"
     className={`pagination-button ${
       pageNumber === currentPageIndex ? "pagination-button-active" : null
     }`}
