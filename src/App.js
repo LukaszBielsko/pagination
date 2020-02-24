@@ -1,9 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import "./App.css";
 import Pagination from "./components/Pagination";
-import { createComponentsWithProps, randomPaginationProps } from "./utils";
+import {
+  createComponentsWithProps,
+  randomPaginationProps,
+  numberGraterThenZero
+} from "./utils";
 
 const App = ({ componentsCount }) => {
   const paginationComponents = createComponentsWithProps(
@@ -16,7 +19,7 @@ const App = ({ componentsCount }) => {
 };
 
 App.propTypes = {
-  componentsCount: PropTypes.number.isRequired
+  componentsCount: numberGraterThenZero
 };
 
 export default App;

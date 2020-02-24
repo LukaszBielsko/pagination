@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { range } from "lodash";
-import PropTypes from "prop-types";
 
 import PaginationButton from "./PaginationButton";
+import { numberGraterThenZero } from "../utils";
 
 class Pagination extends Component {
   state = {
@@ -112,9 +112,9 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-  offset: PropTypes.number.isRequired,
-  pagesCount: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired
+  offset: numberGraterThenZero,
+  pagesCount: numberGraterThenZero,
+  currentPage: numberGraterThenZero
 };
 
 export default Pagination;

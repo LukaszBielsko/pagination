@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "../App.css";
+import { numberGraterThenZero } from "../utils";
 
 const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
   <div
@@ -17,8 +18,8 @@ const PaginationButton = ({ pageNumber, click, currentPageIndex }) => (
 
 PaginationButton.propTypes = {
   click: PropTypes.func.isRequired,
-  pageNumber: PropTypes.number.isRequired,
-  currentPageIndex: PropTypes.number.isRequired
+  pageNumber: numberGraterThenZero,
+  currentPageIndex: numberGraterThenZero
 };
 
 export default PaginationButton;
