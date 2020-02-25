@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { range } from "lodash";
 
 import PaginationButton from "./PaginationButton";
-import { numberGraterThenZero } from "../utils";
+import { numberIsGraterThenZero } from "../utils";
 
 class Pagination extends Component {
   state = {
@@ -21,11 +21,8 @@ class Pagination extends Component {
 
   checkPageRange = currentPageIndex => {
     const { pages } = this.state;
-    if (currentPageIndex < 0) {
-      return 0;
-    } else if (currentPageIndex > pages.length) {
-      return pages.length;
-    }
+    if (currentPageIndex < 0) return 0;
+    else if (currentPageIndex > pages.length) return pages.length;
     return currentPageIndex;
   };
 
@@ -48,8 +45,8 @@ class Pagination extends Component {
     });
   };
 
-  populatePaginationButtons = (pages, firstIndex, lastIndex) => {
-    return pages.slice(firstIndex, lastIndex).map(element => {
+  populatePaginationButtons = (pages, firstIndex, lastIndex) =>
+    pages.slice(firstIndex, lastIndex).map(element => {
       return (
         <PaginationButton
           key={element}
@@ -59,7 +56,6 @@ class Pagination extends Component {
         />
       );
     });
-  };
 
   createPagination = (pages, currentPageIndex, offset) => {
     const pageRange = offset * 2 + 1;
@@ -86,7 +82,6 @@ class Pagination extends Component {
   render() {
     const { currentPageIndex, pages } = this.state;
     const { offset } = this.props;
-
     const pagination = this.createPagination(pages, currentPageIndex, offset);
 
     return (
@@ -114,9 +109,9 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-  currentPage: numberGraterThenZero,
-  offset: numberGraterThenZero,
-  pagesCount: numberGraterThenZero
+  currentPage: numberIsGraterThenZero,
+  offset: numberIsGraterThenZero,
+  pagesCount: numberIsGraterThenZero
 };
 
 export default Pagination;

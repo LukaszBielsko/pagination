@@ -5,7 +5,7 @@ import Pagination from "./components/Pagination";
 
 import {
   createComponentsWithProps,
-  numberGraterThenZero,
+  numberIsGraterThenZero,
   randomPaginationProps
 } from "./utils";
 
@@ -24,7 +24,7 @@ const App = ({ componentsCount }) => {
 };
 
 App.propTypes = {
-  componentsCount: numberGraterThenZero
+  componentsCount: numberIsGraterThenZero
 };
 
 export default App;
