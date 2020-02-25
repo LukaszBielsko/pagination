@@ -1,3 +1,10 @@
-export { createComponentsWithProps, randomPaginationProps } from "./helpers";
-export { numberGraterThenZero } from "./customPropValidators";
-export { setup, findByTestAttribute, findByComponentName } from "./testUtils";
+export {
+  createComponentsWithProps,
+  randomPaginationProps,
+  randomNumbers
+} from "./componentsHelpers";
+export {
+  numberIsGraterThenZero,
+  numberIsZeroOrGreater
+} from "./customPropValidators";
+export { setup, findByTestAttribute, findByComponentName } from "./testHelpers";
