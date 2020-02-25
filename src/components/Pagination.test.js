@@ -29,6 +29,18 @@ describe("Pagination", () => {
         expect(paginationButtonComponents.length).toBe(pageRange);
       }
     });
+    it("renders two change page buttons", () => {
+      const buttons = wrapper.find("button");
+      expect(buttons.length).toBe(2);
+    });
+    it("renders change to previous page button", () => {
+      const prevButton = findByTestAttribute(wrapper, "prev");
+      expect(prevButton.length).toBe(1);
+    });
+    it("renders change to next page button", () => {
+      const nextButton = findByTestAttribute(wrapper, "next");
+      expect(nextButton.length).toBe(1);
+    });
   });
 
   describe("props", () => {
@@ -53,14 +65,16 @@ describe("Pagination", () => {
       expect(componentState.pages.length).toBe(randomProps.pagesCount);
       expect(componentState.currentPageIndex).toBe(randomProps.currentPage - 1);
     });
-    /* waiting for stack overflow answer 
+    /* 
     it("sets state when previous button clicked", () => {
-      console.log(componentState.currentPageIndex);
+      console.log("state before", componentState.currentPageIndex);
       const prevButton = findByTestAttribute(wrapper, "prev");
-      console.log(prevButton.debug());
+      console.log(wrapper.debug());
+      console.log("button", prevButton.debug());
       prevButton.simulate("click");
-      console.log(componentState.currentPageIndex);
-      console.log("state", componentState);
+      console.log(wrapper.debug());
+      console.log("simulate button", prevButton.simulate("click").debug());
+      console.log("state after", componentState.currentPageIndex);
     }); */
   });
 
