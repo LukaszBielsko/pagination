@@ -4,7 +4,8 @@ import {
   setup,
   findByTestAttribute,
   findByComponentName,
-  randomPaginationProps
+  randomPaginationProps,
+  randomNumbers
 } from "../utils";
 
 describe("Pagination", () => {
@@ -28,7 +29,7 @@ describe("Pagination", () => {
       } else {
         expect(paginationButtonComponents.length).toBe(pageRange);
       }
-    });
+    })
     it("renders two change page buttons", () => {
       const buttons = wrapper.find("button");
       expect(buttons.length).toBe(2);
@@ -65,17 +66,29 @@ describe("Pagination", () => {
       expect(componentState.pages.length).toBe(randomProps.pagesCount);
       expect(componentState.currentPageIndex).toBe(randomProps.currentPage - 1);
     });
-    /* 
+
+    const randomPageIndex = randomNumbers(10);
+
     it("sets state when previous button clicked", () => {
-      console.log("state before", componentState.currentPageIndex);
-      const prevButton = findByTestAttribute(wrapper, "prev");
-      console.log(wrapper.debug());
-      console.log("button", prevButton.debug());
+      const wrapperWithState = setup(Pagination, randomProps, {
+        currentPageIndex: randomPageIndex
+      });
+      const prevButton = findByTestAttribute(wrapperWithState, "prev");
       prevButton.simulate("click");
-      console.log(wrapper.debug());
-      console.log("simulate button", prevButton.simulate("click").debug());
-      console.log("state after", componentState.currentPageIndex);
-    }); */
+      expect(wrapperWithState.state().currentPageIndex).toBe(
+        randomPageIndex - 1
+      );
+    });
+    it("sets state when next button clicked", () => {
+      const wrapperWithState = setup(Pagination, randomProps, {
+        currentPageIndex: randomPageIndex
+      });
+      const prevButton = findByTestAttribute(wrapperWithState, "next");
+      prevButton.simulate("click");
+      expect(wrapperWithState.state().currentPageIndex).toBe(
+        randomPageIndex + 1
+      );
+    });
   });
 
   describe("helper methods", () => {
