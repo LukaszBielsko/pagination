@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { range } from "lodash";
 
 import PaginationButton from "./PaginationButton";
+import { numberIsGraterThenZero } from "../utils";
 
-export default class Pagination extends Component {
+class Pagination extends Component {
   state = {
     pages: [],
     currentPageIndex: null
@@ -20,11 +21,8 @@ export default class Pagination extends Component {
 
   checkPageRange = currentPageIndex => {
     const { pages } = this.state;
-    if (currentPageIndex < 0) {
-      return 0;
-    } else if (currentPageIndex > pages.length) {
-      return pages.length;
-    }
+    if (currentPageIndex < 0) return 0;
+    else if (currentPageIndex > pages.length) return pages.length;
     return currentPageIndex;
   };
 
@@ -47,8 +45,8 @@ export default class Pagination extends Component {
     });
   };
 
-  populatePaginationButtons = (pages, firstIndex, lastIndex) => {
-    return pages.slice(firstIndex, lastIndex).map(element => {
+  populatePaginationButtons = (pages, firstIndex, lastIndex) =>
+    pages.slice(firstIndex, lastIndex).map(element => {
       return (
         <PaginationButton
           key={element}
@@ -58,7 +56,6 @@ export default class Pagination extends Component {
         />
       );
     });
-  };
 
   createPagination = (pages, currentPageIndex, offset) => {
     const pageRange = offset * 2 + 1;
@@ -85,23 +82,24 @@ export default class Pagination extends Component {
   render() {
     const { currentPageIndex, pages } = this.state;
     const { offset } = this.props;
-
     const pagination = this.createPagination(pages, currentPageIndex, offset);
 
     return (
-      <div className="pagination">
+      <div data-test="pagination" className="pagination">
         <button
           className="change-page-btn"
-          onClick={() => this.changePageButtonHandler("prev")}
+          data-test="prev"
           disabled={currentPageIndex === 0}
+          onClick={() => this.changePageButtonHandler("prev")}
         >
           Prev
         </button>
         {pagination}
         <button
           className="change-page-btn"
-          onClick={() => this.changePageButtonHandler("next")}
+          data-test="next"
           disabled={currentPageIndex === pages.length - 1}
+          onClick={() => this.changePageButtonHandler("next")}
         >
           Next
         </button>
@@ -109,3 +107,11 @@ export default class Pagination extends Component {
     );
   }
 }
+
+Pagination.propTypes = {
+  currentPage: numberIsGraterThenZero,
+  offset: numberIsGraterThenZero,
+  pagesCount: numberIsGraterThenZero
+};
+
+export default Pagination;

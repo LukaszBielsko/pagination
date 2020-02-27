@@ -9,12 +9,13 @@ export const createComponentsWithProps = (
   let components = [];
   for (let index = 0; index < componentsCount; index++) {
     const componentsProps = createPropsFunction();
+    // console.log("comp", <Component {...componentsProps} key={index} />);
     components.push(<Component {...componentsProps} key={index} />);
   }
   return components;
 };
 
-const randomNumbers = max => {
+export const randomNumbers = max => {
   return Math.floor(1 + Math.random() * max);
 };
 
